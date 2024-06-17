@@ -13,18 +13,16 @@ function Index() {
         <h2 className="mb-4">
           Cegah gejala DBD yang lebih parah dengan diagnosa yang lebih awal
         </h2>
-        <div>
+        <Link to="/diagnosa" className="size-fit">
           <Button
-            as={Link}
-            to="/diagnosa"
             outline
             gradientDuoTone="cyanToBlue"
-            className="font-semibold size-fit"
+            className="size-fit font-semibold"
           >
             Mulai sekarang
             <FaArrowRight className="ml-2 size-5" />
           </Button>
-        </div>
+        </Link>
       </div>
       <div className="flex h-full flex-1 items-center justify-center">
         <img src={nyamuk} alt="Nyamuk DBD" className="size-[65vh]" />
