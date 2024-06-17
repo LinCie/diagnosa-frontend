@@ -1,20 +1,66 @@
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
+} from "flowbite-react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import nyamuk from "./assets/images/nyamuk.svg";
 
-function Root() {
-  const [Cookies] = useCookies(["username"]);
+function Header() {
+  const [cookies, setCookie] = useCookies(["username"]);
+  const location = useLocation();
+
+  function keluar() {
+    setCookie("username", "");
+  }
 
   return (
+    <header className="fixed inset-x-0 top-0">
+      <Navbar fluid rounded>
+        <NavbarBrand as={Link} to="/" className="gap-1">
+          <img src={nyamuk} className="size-8" alt="nyamuk dbd" />
+          <span className="self-center whitespace-nowrap text-xl font-semibold">
+            Diagnosa DBD
+          </span>
+        </NavbarBrand>
+        <NavbarToggle />
+        <NavbarCollapse>
+          {cookies.username ? (
+            <NavbarLink onClick={keluar} as={Link} to="/">
+              Keluar
+            </NavbarLink>
+          ) : (
+            <>
+              <NavbarLink
+                as={Link}
+                to="/masuk"
+                active={location.pathname === "/masuk"}
+              >
+                Masuk
+              </NavbarLink>
+              <NavbarLink
+                as={Link}
+                to="/daftar"
+                active={location.pathname === "/daftar"}
+              >
+                Daftar
+              </NavbarLink>
+            </>
+          )}
+        </NavbarCollapse>
+      </Navbar>
+    </header>
+  );
+}
+
+function Root() {
+  return (
     <main className="w-full">
-      <header className="fixed inset-x-0 top-0 flex items-center justify-between bg-white px-6 py-4">
-        <div className="flex gap-3">
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
-        </div>
-        <div>
-          {Cookies.username ? `Halo, ${Cookies.username}` : "Anda belum login"}
-        </div>
-      </header>
+      <Header />
+      <Outlet />
     </main>
   );
 }
