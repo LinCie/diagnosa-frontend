@@ -36,7 +36,7 @@ function Masuk() {
   }
 
   if (cookies.username) {
-    return <Navigate replace to="/" />;
+    return <Navigate replace to="/diagnosa" />;
   }
 
   return (
